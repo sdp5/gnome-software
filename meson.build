@@ -201,6 +201,10 @@ if get_option('packagekit')
   if meson.get_compiler('c').has_function('pk_details_get_download_size', prefix: '#include <packagekit-glib2/packagekit.h>', dependencies: packagekit)
       conf.set('HAVE_PK_DETAILS_GET_DOWNLOAD_SIZE', '1')
   endif
+  if meson.get_compiler('c').links('''#include <packagekit-glib2/packagekit.h>
+  int main(void) { PkClientError err = PK_CLIENT_ERROR_DECLINED_INTERACTION; return 0; }''', dependencies: packagekit, name: 'PK_CLIENT_ERROR_DECLINED_INTERACTION')
+      conf.set('HAVE_PK_CLIENT_ERROR_DECLINED_INTERACTION', '1')
+  endif
 endif
 
 if get_option('eos_updater')

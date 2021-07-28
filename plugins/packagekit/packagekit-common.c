@@ -108,7 +108,9 @@ gs_plugin_packagekit_error_convert (GError **error)
 			break;
 		#else
 		case PK_CLIENT_ERROR_FAILED:
-			/* The text is not localized on the PackageKit side and it uses a generic error code */
+			/* The text is not localized on the PackageKit side and it uses a generic error code
+			 * FIXME: This can be dropped when we depend on a
+			 * PackageKit version which includes https://github.com/PackageKit/PackageKit/pull/497 */
 			if (g_strcmp0 (error_tmp->message, "user declined interaction") == 0)
 				error_tmp->code = GS_PLUGIN_ERROR_CANCELLED;
 			else
